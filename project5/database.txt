@@ -17,3 +17,4 @@
 {"date":"2025-04-30","price":199,"user":"v","_id":"wI6N08tynB0kzKaZ"}
 {"date":"2025-04-23","price":1,"user":"v","_id":"y5rX4KxgGahTgo9z"}
 {"date":"2025-04-29","price":0.06,"user":"f","_id":"zLHwniUEBjF2z5Eg"}
+{"date":"2025-04-15","price":10,"user":"v","_id":"1ybj4RI9u897Ps0R"}
