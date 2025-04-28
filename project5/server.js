@@ -217,7 +217,7 @@ app.post('/signup', upload.single("profilePicture"), (req, res)=>{
   let newUser = {
     username: req.body.username,
     fullname: req.body.fullname,
-    password: hashedPasswor, // encrptyed password will be stored in db
+    password: hashedPassword, // encrptyed password will be stored in db
     following: [] // Initialize with an empty array
   }
 

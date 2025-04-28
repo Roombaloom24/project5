@@ -1,3 +1,4 @@
 {"username":"f","fullname":"f","password":"$2b$10$vM357.GHcNkfqvbCKe3xzOr7o12tibFfUCrrukXIsGPFw3B0zIcUu","_id":"4Gmro6tDivT802Fn","following":[]}
 {"username":"v","fullname":"v","password":"$2b$10$W.U/S8Iw832aM.bypHPvu.pYUZl1JeXMfgiDHzFSDEWlTlHxtMZa2","_id":"bsUxEdGlpZDk67DN","following":["f","v"]}
+{"username":"c","fullname":"cate","password":"$2b$10$6DWI89wkRd6hIz6bdknHUOKf58hIQYZH1M1FQGsLuSZxMPLX5dzfC","following":[],"_id":"v6dNN5TktLTv6D5M"}
 {"username":"d","fullname":"d","password":"$2b$10$2sw5zFTCh14KbH3Ptf7N0uZ63O4aDqVkNxnmF3nerS4o3I6Wa7b0m","_id":"w7CdaWhZVKqFR0RI","following":["f","v"]}

@@ -4,9 +4,11 @@
 {"date":"2025-04-16","price":10,"user":"d","_id":"IYczgmkHqwvqk2zT"}
 {"date":"2025-04-10","price":3,"user":"v","_id":"Mio2VxK4ubNOkYGT"}
 {"date":"2025-04-24","price":19,"user":"v","_id":"QoZWNwi4OWR80d62"}
+{"date":"2025-04-28","price":10,"user":"c","_id":"RbbppLmpCNgilcho"}
 {"date":"2025-04-16","price":10,"user":"f","_id":"S9UPHIIvAJwAZGFH"}
 {"date":"2025-04-27","price":10,"user":"d","_id":"Tiq6ZQOBKJpuwmXV"}
 {"date":"2025-04-15","price":1,"user":"v","_id":"XoZqf2ftUoYygSzb"}
+{"date":"2025-04-30","price":50,"user":"c","_id":"b7OdUjHt37wtYC5K"}
 {"date":"2025-04-08","price":8,"user":"v","_id":"oZmc2rwF6okRmPCU"}
 {"date":"2025-04-28","price":10,"user":"d","_id":"q5zH1bisgYmRhfig"}
 {"date":"2025-04-30","price":100,"user":"v","_id":"tcSoyWboafVqbYW0"}
