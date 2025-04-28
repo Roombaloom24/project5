@@ -18,6 +18,8 @@ const bcrypt = require('bcrypt')
 // instantiate express application
 const app = express();
 
+EXAMPLE...
+
 // more variable setups
 const urlEncodedParser = bodyParser.urlencoded({ extended: true }); // set up body parser to parse request.body
 
