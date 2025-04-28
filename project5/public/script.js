@@ -10,24 +10,22 @@ window.onload = () => {
 };
 
 async function renderSearchChart() {
-  const dataFromUserF = await fetch("/searchUser").then((response) =>
-    response.json()
-  );
-  const labelsF = dataFromUserF.map((item) => item.date);
-  const dataPointsF = dataFromUserF.map((item) => item.price);
-
-  // Render chart for user 'f'
-  const ctxF = document
+  const dataFromUserSearch = posts;
+  console.log(posts);
+  const labelsSearch = dataFromUserSearch.map((item) => item.date);
+  const dataPointsSearch = dataFromUserSearch.map((item) => item.price);
+  // Render chart for user 'search'
+  const ctxSearch = document
     .getElementById("searchStock")
     .getContext("2d");
-  const personalStockChartF = new Chart(ctxF, {
+  const personalStockChartSearch = new Chart(ctxSearch, {
     type: "line",
     data: {
-      labels: labelsF,
+      labels: labelsSearch,
       datasets: [
         {
-          label: "User F - Closing Price (USD)",
-          data: dataPointsF,
+          label: "User Search - Closing Price (USD)",
+          data: dataPointsSearch,
           borderColor: "#ccc",
           backgroundColor: "rgba(0,0,0,0)",
           tension: 0.3,
@@ -272,7 +270,36 @@ async function renderCharts() {
           }
         }
       });
-    
+// $&Y#*GUEHFBJDHAUEYGEUTFVHDBJ CNSDAHUIFGYEVHDB NSJDSHIUGYFEHVB DNSJDAOIUHEFBGJD SNKJADIUHFEBJDV NSJDAUFHUBDSJV NJFHIUSD
+// $&Y#*GUEHFBJDHAUEYGEUTFVHDBJ CNSDAHUIFGYEVHDB NSJDSHIUGYFEHVB DNSJDAOIUHEFBGJD SNKJADIUHFEBJDV NSJDAUFHUBDSJV NJFHIUSD
+// $&Y#*GUEHFBJDHAUEYGEUTFVHDBJ CNSDAHUIFGYEVHDB NSJDSHIUGYFEHVB DNSJDAOIUHEFBGJD SNKJADIUHFEBJDV NSJDAUFHUBDSJV NJFHIUSD
+// $&Y#*GUEHFBJDHAUEYGEUTFVHDBJ CNSDAHUIFGYEVHDB NSJDSHIUGYFEHVB DNSJDAOIUHEFBGJD SNKJADIUHFEBJDV NSJDAUFHUBDSJV NJFHIUSD
+// $&Y#*GUEHFBJDHAUEYGEUTFVHDBJ CNSDAHUIFGYEVHDB NSJDSHIUGYFEHVB DNSJDAOIUHEFBGJD SNKJADIUHFEBJDV NSJDAUFHUBDSJV NJFHIUSD
+// $&Y#*GUEHFBJDHAUEYGEUTFVHDBJ CNSDAHUIFGYEVHDB NSJDSHIUGYFEHVB DNSJDAOIUHEFBGJD SNKJADIUHFEBJDV NSJDAUFHUBDSJV NJFHIUSD
+// SAM HELP ME PLEASE
+      const searchResults = [];
+      
+// REMEMBER THAT YOU CAN"T FIND THE SEAERCH IN THE BODT
+      async function searchU() {
+
+        const input = document.getElementById('search').value;
+
+        searchResults.push(input);
+        await fetch('/searchUser' , {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({input})
+        });
+      }
+      // TRYING TO DO THIS THE SAME WAY AS THE ADD DATA FUNCTION
+// $&Y#*GUEHFBJDHAUEYGEUTFVHDBJ CNSDAHUIFGYEVHDB NSJDSHIUGYFEHVB DNSJDAOIUHEFBGJD SNKJADIUHFEBJDV NSJDAUFHUBDSJV NJFHIUSD
+// $&Y#*GUEHFBJDHAUEYGEUTFVHDBJ CNSDAHUIFGYEVHDB NSJDSHIUGYFEHVB DNSJDAOIUHEFBGJD SNKJADIUHFEBJDV NSJDAUFHUBDSJV NJFHIUSD
+// $&Y#*GUEHFBJDHAUEYGEUTFVHDBJ CNSDAHUIFGYEVHDB NSJDSHIUGYFEHVB DNSJDAOIUHEFBGJD SNKJADIUHFEBJDV NSJDAUFHUBDSJV NJFHIUSD
+// $&Y#*GUEHFBJDHAUEYGEUTFVHDBJ CNSDAHUIFGYEVHDB NSJDSHIUGYFEHVB DNSJDAOIUHEFBGJD SNKJADIUHFEBJDV NSJDAUFHUBDSJV NJFHIUSD
+// $&Y#*GUEHFBJDHAUEYGEUTFVHDBJ CNSDAHUIFGYEVHDB NSJDSHIUGYFEHVB DNSJDAOIUHEFBGJD SNKJADIUHFEBJDV NSJDAUFHUBDSJV NJFHIUSD
+// $&Y#*GUEHFBJDHAUEYGEUTFVHDBJ CNSDAHUIFGYEVHDB NSJDSHIUGYFEHVB DNSJDAOIUHEFBGJD SNKJADIUHFEBJDV NSJDAUFHUBDSJV NJFHIUSD
+// $&Y#*GUEHFBJDHAUEYGEUTFVHDBJ CNSDAHUIFGYEVHDB NSJDSHIUGYFEHVB DNSJDAOIUHEFBGJD SNKJADIUHFEBJDV NSJDAUFHUBDSJV NJFHIUSD
+
       async function addData() {
         // const currentDate = new Date().toISOString().split('T')[0];
         // const date = currentDate;
@@ -317,7 +344,7 @@ async function renderCharts() {
 
 
 
-async function addElements(e) {
+  async function addElements(e) {
   let data = await fetch("/savestock");
   let formatData = await data.json();
   console.log(formatData);

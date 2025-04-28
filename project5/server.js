@@ -139,47 +139,23 @@ app.get("/post/:id",  requiresAuthentication, (req, res) => {
     res.render("singlePost.ejs", { post: data });
   });
 });
+app.get('/specificstock', requiresAuthentication, (req, res) => {
+  
+  res.render('specificstock.ejs'); // Serialize data
+})
 
 // route that is attached to search form
-app.get("/search",  requiresAuthentication, (req, res) => {
-  // getting the term from the form
-  let searchTerm = req.query.user;
-
-  // using REGular EXPressions to search the text properties of the database
-  let databaseSearch = {
-    text: new RegExp(searchTerm),
-  };
-
-  // find all data objects that use the specific search term
-  database.find(databaseSearch, (err, results) => {
-    res.render("search.ejs", { searchTerm: databaseSearch });
-  });
+app.get('/search', (req, res)=>{
+  res.render('search.ejs'); // Serialize data
 });
 
-app.get("/searchUser", requiresAuthentication, (req, res) => {
-  // getting the term from the form
-  let searchTerm = req.query.searchTerm;
+app.post("/searchUser", requiresAuthentication, (req, res) => {
+  const { input } = req.body; // Extract the 'input' value from the request body
+  console.log("Search input:", input);
 
-  if (!searchTerm) {
-    return res.status(400).send("Search term is required");
-  }
-
-  // Search for the user in the user database
-  userdb.findOne({ username: new RegExp(searchTerm) }, (err, user) => {
-    if (err || !user) {
-      console.error("User not found or database error:", err);
-      return res.status(404).send("User not found");
-    }
-
-    // Fetch stock data for the found user
-    database.find({ user: user.username }).sort({ date: 1 }).exec((err, stockData) => {
-      if (err) {
-        console.error("Database error:", err);
-        return res.status(500).send("Failed to retrieve stock data");
-      }
-
-      res.json(stockData); // Send the stock data as JSON
-    });
+  database.find({ user: input }).sort({ date: 1 }).exec((_, data) => {
+    res.json(data); 
+    // Send the search results as JSON
   });
 });
 
@@ -424,13 +400,11 @@ app.get('/personalstock', requiresAuthentication, (req, res) => {
 
 app.get('/selfstock', requiresAuthentication, (req, res) => {
   database.find({user: req.session.loggedInUser}).sort({ date: 1 }).exec((err, data) => {
-    console.log(data); // Log the data for debugging
     res.json(data);
   });
 });
 app.get('/selfstock2', requiresAuthentication, (req, res) => {
   database.find({user: 'v'}).sort({ date: 1 }).exec((err, data) => {
-    console.log(data); // Log the data for debugging
     res.json(data);
   });
 });
@@ -438,7 +412,6 @@ app.get('/selfstock2', requiresAuthentication, (req, res) => {
 
 app.post('/savestock', requiresAuthentication, express.json(), (req, res) => {
   const { date, price } = req.body;
-  console.log("Received data:", req.body); // Log the incoming data
 
   if (!date || isNaN(price)) {
     console.error("Invalid data:", req.body);
@@ -450,7 +423,6 @@ app.post('/savestock', requiresAuthentication, express.json(), (req, res) => {
       console.error("Database error:", err);
       return res.status(500).send("Failed to save");
     }
-    console.log("Saved entry:", newEntry);
     res.status(200).send("Saved");
   });
 });

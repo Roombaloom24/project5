@@ -1,0 +1,23 @@
+<html>
+    <head>
+
+        <title>MoodCoin</title>
+        <link href="style.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    </head>
+    <body>
+        <%- include('nav.ejs') %>
+        <%- include('logout.ejs') %>
+
+        <div class="rest">
+            <h1>Stock Data</h1>
+            <p>this is the specific stock page</p>
+            <div class='chartDiv'>
+                <canvas id="specificStockChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
