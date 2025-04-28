@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Input Stock Chart</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #111;
+      color: #eee;
+      padding: 2rem;
+    }
+    input, button { 
+      padding: 0.5rem;
+      margin: 0.5rem;
+      font-size: 1rem;
+    }
+    canvas {
+      margin-top: 2rem;
+      background: #222;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📈 Custom Stock Chart</h1>
+  <p>Enter your own stock data below. No APIs, just your story in numbers.</p>
+
+  <label for="date">Date (YYYY-MM-DD):</label>
+  <input type="date" id="date" required>
+  <label for="price">Closing Price:</label>
+  <input type="number" id="price" step="0.01" required>
+  <button onclick="addData()">Add Data</button>
+  <button onclick="resetChart()">Reset</button>
+
+  <canvas id="stockChart" width="800" height="400"></canvas>
+
+  <script>
+    const labels = [];
+    const dataPoints = [];
+
+    const ctx = document.getElementById('stockChart').getContext('2d');
+    const stockChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+  label: 'Closing Price (USD)',
+  data: dataPoints,
+  borderColor: '#ccc', // fallback
+  backgroundColor: 'rgba(0,0,0,0)',
+  tension: 0.3,
+  pointRadius: 4,
+  pointHoverRadius: 6,
+  segment: {
+    borderColor: ctx => {
+      const i = ctx.p0DataIndex;
+      const current = ctx.chart.data.datasets[0].data[i];
+      const next = ctx.chart.data.datasets[0].data[i + 1];
+      if (!next) return '#ccc'; // fallback for last point
+      return next > current ? 'green' : 'red';
+    }
+  }
+}]
+
+
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Date',
+              color: '#ccc'
+            },
+            ticks: { color: '#ccc' }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Price (USD)',
+              color: '#ccc'
+            },
+            ticks: { color: '#ccc' }
+          }
+        },
+        plugins: {
+          legend: {
+            labels: { color: '#ccc' }
+          }
+        }
+      }
+    });
+
+    function addData() {
+      const date = document.getElementById('date').value;
+      const price = parseFloat(document.getElementById('price').value);
+
+      if (!date || isNaN(price)) {
+        alert("Please enter a valid date and price.");
+        return;
+      }
+
+      labels.push(date);
+      dataPoints.push(price);
+      stockChart.update();
+    }
+
+    function resetChart() {
+      labels.length = 0;
+      dataPoints.length = 0;
+      stockChart.update();
+    }
+  </script>
+
+</body>
+</html>
+
+
+

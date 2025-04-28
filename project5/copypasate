@@ -1,0 +1,8 @@
+  // console.log(<%=stockData%>)
+    // console.log(dataFromServer);
+    // let labels = '<%- dataFromServer.map(item => item.date) %>' ;
+    // labels = labels.split(',');
+    // console.log(typeof labels, labels);
+    // let dataPoints = '<%- dataFromServer.map(item => item.price)%> ';
+    // dataPoints = dataPoints.split(',');
+    // console.log(dataPoints)

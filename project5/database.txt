@@ -1,0 +1,16 @@
+{"date":"2025-04-23","price":1,"user":"v","_id":"8BOktcrhOtx1oO1L"}
+{"date":"2025-04-24","price":1,"user":"v","_id":"8yOL3RVXqd1X4bNt"}
+{"date":"2025-04-16","price":10,"user":"d","_id":"IYczgmkHqwvqk2zT"}
+{"date":"2025-04-10","price":3,"user":"v","_id":"Mio2VxK4ubNOkYGT"}
+{"date":"2025-04-24","price":19,"user":"v","_id":"QoZWNwi4OWR80d62"}
+{"date":"2025-04-16","price":10,"user":"f","_id":"S9UPHIIvAJwAZGFH"}
+{"date":"2025-04-27","price":10,"user":"d","_id":"Tiq6ZQOBKJpuwmXV"}
+{"date":"2025-04-15","price":1,"user":"v","_id":"XoZqf2ftUoYygSzb"}
+{"date":"2025-04-08","price":8,"user":"v","_id":"oZmc2rwF6okRmPCU"}
+{"date":"2025-04-28","price":10,"user":"d","_id":"q5zH1bisgYmRhfig"}
+{"date":"2025-04-30","price":100,"user":"v","_id":"tcSoyWboafVqbYW0"}
+{"date":"2025-04-24","price":2,"user":"v","_id":"uJFwpxxdS2C0KhhC"}
+{"date":"2025-04-08","price":1,"user":"d","_id":"w5v0z3tPt2r9zitL"}
+{"date":"2025-04-30","price":199,"user":"v","_id":"wI6N08tynB0kzKaZ"}
+{"date":"2025-04-23","price":1,"user":"v","_id":"y5rX4KxgGahTgo9z"}
+{"date":"2025-04-29","price":0.06,"user":"f","_id":"zLHwniUEBjF2z5Eg"}

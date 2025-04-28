@@ -1,0 +1,77 @@
+const labels = [];
+const dataPoints = [];
+
+const ctx = document.getElementById('stockChart').getContext('2d');
+const stockChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: labels,
+    datasets: [{
+label: 'Closing Price (USD)',
+data: dataPoints,
+borderColor: '#ccc', // fallback
+backgroundColor: 'rgba(0,0,0,0)',
+tension: 0.3,
+pointRadius: 4,
+pointHoverRadius: 6,
+segment: {
+borderColor: ctx => {
+  const i = ctx.p0DataIndex;
+  const current = ctx.chart.data.datasets[0].data[i];
+  const next = ctx.chart.data.datasets[0].data[i + 1];
+  if (!next) return '#ccc'; // fallback for last point
+  return next > current ? 'green' : 'red';
+}
+}
+}]
+
+
+  },
+  options: {
+    responsive: true,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Date',
+          color: '#ccc'
+        },
+        ticks: { color: '#ccc' }
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Price (USD)',
+          color: '#ccc'
+        },
+        ticks: { color: '#ccc' }
+      }
+    },
+    plugins: {
+      legend: {
+        labels: { color: '#ccc' }
+      }
+    }
+  }
+});
+
+function addData() {
+  const date = document.getElementById('date').value;
+  const price = parseFloat(document.getElementById('price').value);
+
+  if (!date || isNaN(price)) {
+    alert("Please enter a valid date and price.");
+    return;
+  }
+
+  labels.push(date);
+  dataPoints.push(price);
+  stockChart.update();
+}
+// LOOK AT CLASS 11 
+
+function resetChart() {
+  labels.length = 0;
+  dataPoints.length = 0;
+  stockChart.update();
+}
