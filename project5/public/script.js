@@ -9,10 +9,19 @@ window.onload = () => {
   specificSearch();
   dataNames();
   
+  getAllUsernames();
 
-
+  fetchAllUsersData();
 
 };
+
+
+
+
+
+
+
+
 
 // do the same thign you did with the search where you look for the url and populate it with that.
 // MAKE THE NAV BUTTON POPULATE THE QUERY 
@@ -57,8 +66,75 @@ await generateChart("personalStockChart4", dataFromUserFollow4);
 console.log(dataFromUserFollow4);
 
 
+
+
+
+}
+async function fetchAllUsersData() {
+  try {
+    const response = await fetch('/all-users');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const groupedData = await response.json();
+    console.log("Grouped Data by User:", groupedData);
+
+    // Iterate over each user in the grouped data
+    Object.keys(groupedData).forEach((user) => {
+      const userData = groupedData[user];
+
+      // Dynamically create a wrapper div for each chart and button
+      const wrapper = document.createElement('div');
+      wrapper.className = 'chart-wrapper';
+
+      // Create a link that wraps the canvas element
+      const link = document.createElement('a');
+      link.href = `/specificstock?user=${encodeURIComponent(user)}`; // Link to the specific stock page for the user
+      link.title = `View ${user}'s stock details`;
+
+      // Dynamically create a canvas element for each user
+      const canvasId = `personalStockChart_${user}`;
+      const canvasElement = document.createElement('canvas');
+      canvasElement.id = canvasId;
+      canvasElement.width = 400;
+      canvasElement.height = 200;
+
+      // Append the canvas to the link
+      link.appendChild(canvasElement);
+
+      // Create a "Follow" button for the user
+      const followButton = document.createElement('button');
+      followButton.textContent = `Follow ${user}`;
+      followButton.onclick = () => followUser(user); // Attach the followUser function
+
+      // Add a title for the chart
+      const userTitle = document.createElement('h3');
+      userTitle.textContent = `Chart for ${user}`;
+
+      // Append the title, link (with canvas), and button to the wrapper
+      wrapper.appendChild(userTitle);
+      wrapper.appendChild(link);
+      wrapper.appendChild(followButton);
+
+      // Append the wrapper to the chartsContainer div
+      const container = document.getElementById('chartsContainer');
+      if (container) {
+        container.appendChild(wrapper);
+      }
+
+      // Generate a chart for the user
+      generateChart(canvasId, userData);
+    });
+  } catch (error) {
+    console.error("Failed to fetch all users' data:", error);
+  }
 }
 
+// Call the function
+
+
+// Example usag
 async function specificSearch() {
 
   const search = document.URL;
@@ -156,14 +232,6 @@ async function specificSearch() {
       const searchResults = [];
       
 // REMEMBER THAT YOU CAN"T FIND THE SEAERCH IN THE BODT
-
-
-async function personal(){
-    user = 
-    // Redirect the user to /personalstock
-    window.location.href = '/personalstock' ;
-
-}
 
 
 
@@ -287,20 +355,42 @@ async function searchU() {
         dataPoints.length = 0;
         stockChart.update();
       }
+function followUserFromSearch() {
+  // Get the username from the search input field
+  const username = document.getElementById('search').value.trim();
 
+  if (!username) {
+    alert('Please enter a valid username to follow.');
+    return;
+  }
 
-      async function followUser() {
+  // Call the existing followUser function with the username
+  followUser(username);
+}
 
-        const search = document.URL
-        const url = '/searchUser?search=' + search.split('=')[1];
-        const name = search.split('=')[1];
-        // Send a POST request to the server to follow the user
-        await fetch("/follow", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name }),
-        });
-        alert(`You are now following ${name}!`);
+      async function followUser(username) {
+        console.log(`Attempting to follow user: ${username}`); // Debugging log
+        try {
+          const response = await fetch('/follow-user', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', // Ensure the Content-Type is set to JSON
+            },
+            body: JSON.stringify({ username }), // Send the username in the request body
+          });
+      
+          if (!response.ok) {
+            throw new Error(`Failed to follow user: ${response.status}`);
+          }
+      
+          const result = await response.json();
+          console.log(`Successfully followed ${username}:`, result);
+      
+          alert(`You are now following ${username}!`);
+        } catch (error) {
+          console.error(`Error following user ${username}:`, error);
+          alert(`Failed to follow ${username}. Please try again.`);
+        }
       }
 
 

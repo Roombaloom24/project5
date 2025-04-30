@@ -1,35 +1,32 @@
 <html>
-    <head>
-        <title>MoodCoin</title>
-        <link href="/style.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    </head>
-    <body>
+<head>
+  <title>MoodCoin</title>
+  <link href="/style.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <%- include('nav.ejs') %>
+  <%- include('logout.ejs') %>
 
-        <%- include('nav.ejs') %>
-        <%- include('logout.ejs') %>
+  <div class="rest">
+    <h1>Stock Data</h1>
+    <p>This is <%= username %>'s profile</p> <!-- Dynamically display the username -->
 
-        <div class="rest">
-            <h1>Stock Data</h1>
-            <p>this is specific stock page</p>
-            
-            <div class='chartDiv'>
-            
-            <canvas id="specificChart" width="400" height="200"></canvas>
-            <div>
-            <button onclick="followUser()">Follow User</button>
-            </div>
-                <h1>Follows</h1>
-               <div class="followChart"> 
-                <canvas class = 'followCharts' id="specificChartF" width="400" height="200"></canvas>
-                <canvas class = 'followCharts' id="specificChartF1" width="400" height="200"></canvas>
-                <canvas class = 'followCharts' id="specificChartF2" width="400" height="200"></canvas>
-                <canvas class = 'followCharts' id="specificChartF3" width="400" height="200"></canvas>
-            </div>
+    <div class='chartDiv'>
+      <canvas id="specificChart" width="400" height="200"></canvas>
+      <div>
+        <button onclick="followUserFromSearch()">Follow User</button>
+      </div>
+      <h1>Follows</h1>
+      <div class="followChart"> 
+        <canvas class='followCharts' id="specificChartF" width="400" height="200"></canvas>
+        <canvas class='followCharts' id="specificChartF1" width="400" height="200"></canvas>
+        <canvas class='followCharts' id="specificChartF2" width="400" height="200"></canvas>
+        <canvas class='followCharts' id="specificChartF3" width="400" height="200"></canvas>
+      </div>
+    </div>
+  </div>
 
-            
-
-        <script src="/script.js"></script>
-
-    </body>
+  <script src="/script.js"></script>
+</body>
 </html>

@@ -140,9 +140,14 @@ app.get("/post/:id",  requiresAuthentication, (req, res) => {
   });
 });
 app.get('/specificstock/:user', requiresAuthentication, (req, res) => {
-  
-  res.render('specificstock.ejs'); // Serialize data
-})
+  const username = req.params.user; // Extract the username from the route parameter
+
+  // Extract the value after '=' in the username if it exists
+  const extractedUsername = username.includes('=') ? username.split('=')[1] : username;
+
+  // Render the specificstock.ejs page with the extracted username
+  res.render('specificstock.ejs', { username: extractedUsername });
+});
 
 // route that is attached to search form
 app.get('/search', (req, res)=>{
@@ -150,11 +155,23 @@ app.get('/search', (req, res)=>{
 });
 
 app.get("/searchUser", requiresAuthentication, (req, res) => {
-  const input = req.query.search; // Extract the 'input' value from the request body
+  let input = req.query.search; // Extract the 'search' query parameter
 
-  database.find({ user: input }).sort({ date: 1 }).exec((_, data) => {
-    res.json(data); 
-    // Send the search results as JSON
+  // Extract the value after '=' if it exists
+  if (input.includes('=')) {
+    input = input.split('=')[1]; // Split by '=' and take the second part
+  }
+
+  console.log(`Searching for user: ${input}`); // Debugging log
+
+  // Query the database for the user
+  database.find({ user: input }).sort({ date: 1 }).exec((err, data) => {
+    if (err) {
+      console.error("Database error:", err);
+      return res.status(500).send("Failed to retrieve user data");
+    }
+
+    res.json(data); // Send the search results as JSON
   });
 });
 
@@ -363,30 +380,30 @@ app.post('/authenticate', (req, res)=>{
     }
   })
 })
+app.post('/follow-user', requiresAuthentication, express.json(), (req, res) => {
+  const { username } = req.body; // Expect "username" in the request body
+  const loggedInUser = req.session.loggedInUser;
 
-// --- STOCK ROUTES (from your custom code) ---
-app.post('/follow', requiresAuthentication, express.json(), (req, res) => {
-  const loggedInUser = req.session.loggedInUser; // Get the logged-in user from the session
-  const userToFollow = req.body.name; // Get the user to follow from the request body
+  console.log(`Follow request received: ${loggedInUser} wants to follow ${username}`); // Debugging log
 
-  if (!userToFollow) {
-    return res.status(400).send("User to follow is required");
+  if (!username || !loggedInUser) {
+    return res.status(400).json({ error: 'Invalid request' });
   }
 
-  // Update the logged-in user's "following" list
+  // Update the logged-in user's "following" list in the database
   userdb.update(
-    { username: loggedInUser }, // Find the logged-in user
-    { $addToSet: { following: userToFollow } }, // Add userToFollow to the "following" array (no duplicates)
+    { username: loggedInUser },
+    { $addToSet: { following: username } }, // Add the username to the "following" array if not already present
     {},
     (err, numUpdated) => {
       if (err) {
-        console.error("Database error:", err);
-        return res.status(500).send("Failed to follow user");
+        console.error('Database error:', err);
+        return res.status(500).json({ error: 'Failed to follow user' });
       }
       if (numUpdated === 0) {
-        return res.status(404).send("Logged-in user not found");
+        return res.status(404).json({ error: 'Logged-in user not found' });
       }
-      res.status(200).send("User followed successfully");
+      res.json({ success: true, message: `You are now following ${username}` });
     }
   );
 });
@@ -537,11 +554,22 @@ console.log(following);
   });
 });
 
-
 app.get('/personalstock', requiresAuthentication, (req, res) => {
+  const loggedInUser = req.session.loggedInUser; // Get the logged-in user from the session
 
-    res.render('personalstock.ejs'); // Serialize data
- 
+  // Fetch the user's data (if needed)
+  userdb.findOne({ username: loggedInUser }, (err, user) => {
+    if (err || !user) {
+      console.error('Database error or user not found:', err);
+      return res.status(500).send('Failed to retrieve user data');
+    }
+
+    // Render the personalstock.ejs page with the user data
+    res.render('personalstock.ejs', {
+      username: loggedInUser,
+      following: user.following || [], // Pass the list of users the logged-in user is following
+    });
+  });
 });
 
 app.get('/selfstock', requiresAuthentication, (req, res) => {
@@ -577,8 +605,38 @@ app.post('/savestock', requiresAuthentication, express.json(), (req, res) => {
 
 
 
+app.get('/all-users', requiresAuthentication, (req, res) => {
+  // Fetch all users from the user database
+  userdb.find({}, { username: 1, _id: 0 }, (err, users) => {
+    if (err) {
+      console.error("Database error:", err);
+      return res.status(500).json({ error: "Failed to retrieve users" });
+    }
 
+    const usernames = users.map(user => user.username); // Extract usernames
 
+    // Fetch all data from the main database for these users
+    database.find({ user: { $in: usernames } }).sort({ date: 1 }).exec((err, data) => {
+      if (err) {
+        console.error("Database error:", err);
+        return res.status(500).json({ error: "Failed to retrieve user data" });
+      }
+
+      // Organize the data by username
+      const groupedData = {};
+      data.forEach(item => {
+        const user = item.user;
+        if (!groupedData[user]) {
+          groupedData[user] = [];
+        }
+        groupedData[user].push(item);
+      });
+
+      // Send the grouped data as JSON
+      res.json(groupedData);
+    });
+  });
+});
 
 
 
@@ -597,6 +655,7 @@ app.post('/savestock', requiresAuthentication, express.json(), (req, res) => {
 app.listen(6001, () => {
   // you can access your dev code via one of two URLs you can copy into the browser
   // http://127.0.0.1:6001/
+  //http://localhost:6001/all-users
   // http://localhost:6001/
   console.log("server started on port 6001");
 });
