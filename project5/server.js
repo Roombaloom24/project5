@@ -98,7 +98,7 @@ app.get("/", requiresAuthentication, (request, response) => {
       // this needs to be rendered in my ejs
       response.render("mainpage.ejs", { posts: data, visitsToSite: newVisits });
     });
-  // } else {
+    // } else {
   //   response.redirect('/login?err=notLoggedIn')
   // }
   
@@ -139,7 +139,7 @@ app.get("/post/:id",  requiresAuthentication, (req, res) => {
     res.render("singlePost.ejs", { post: data });
   });
 });
-app.get('/specificstock', requiresAuthentication, (req, res) => {
+app.get('/specificstock/:user', requiresAuthentication, (req, res) => {
   
   res.render('specificstock.ejs'); // Serialize data
 })
@@ -149,15 +149,125 @@ app.get('/search', (req, res)=>{
   res.render('search.ejs'); // Serialize data
 });
 
-app.post("/searchUser", requiresAuthentication, (req, res) => {
-  const { input } = req.body; // Extract the 'input' value from the request body
-  console.log("Search input:", input);
+app.get("/searchUser", requiresAuthentication, (req, res) => {
+  const input = req.query.search; // Extract the 'input' value from the request body
 
   database.find({ user: input }).sort({ date: 1 }).exec((_, data) => {
     res.json(data); 
     // Send the search results as JSON
   });
 });
+
+app.get("/searchfollows", requiresAuthentication, (req, res) => {
+  const input = req.query.search; // Extract the 'input' value from the request body
+console.log(input);
+  // Find the logged-in user's "following" list
+  userdb.findOne({ username: input }, (err, user) => {
+    if (err || !user) {
+      console.error("Database error or user not found:", err);
+      return res.status(500).send("Failed to retrieve following list");
+    }
+console.log(user);
+    const following = user.following || []; // Get the list of followed users
+    if (following.length === 0) {
+      return res.status(404).send("No users being followed");
+    }
+
+    // Fetch stock data for the first followed user
+    database.find({ user: following[0] }).sort({ date: 1 }).exec((err, stockData) => {
+      if (err) {
+        console.error("Database error:", err);
+        return res.status(500).send("Failed to retrieve stock data");
+      }
+
+      res.json(stockData); // Send the stock data as JSON
+    });
+  });
+  
+});
+app.get("/searchfollows2", requiresAuthentication, (req, res) => {
+  const input = req.query.search; // Extract the 'input' value from the request body
+console.log(input);
+  // Find the logged-in user's "following" list
+  userdb.findOne({ username: input }, (err, user) => {
+    if (err || !user) {
+      console.error("Database error or user not found:", err);
+      return res.status(500).send("Failed to retrieve following list");
+    }
+console.log(user);
+    const following = user.following || []; // Get the list of followed users
+    if (following.length === 0) {
+      return res.status(404).send("No users being followed");
+    }
+
+    // Fetch stock data for the first followed user
+    database.find({ user: following[1] }).sort({ date: 1 }).exec((err, stockData) => {
+      if (err) {
+        console.error("Database error:", err);
+        return res.status(500).send("Failed to retrieve stock data");
+      }
+
+      res.json(stockData); // Send the stock data as JSON
+    });
+  });
+  
+});
+app.get("/searchfollows3", requiresAuthentication, (req, res) => {
+  const input = req.query.search; // Extract the 'input' value from the request body
+console.log(input);
+  // Find the logged-in user's "following" list
+  userdb.findOne({ username: input }, (err, user) => {
+    if (err || !user) {
+      console.error("Database error or user not found:", err);
+      return res.status(500).send("Failed to retrieve following list");
+    }
+console.log(user);
+    const following = user.following || []; // Get the list of followed users
+    if (following.length === 0) {
+      return res.status(404).send("No users being followed");
+    }
+
+    // Fetch stock data for the first followed user
+    database.find({ user: following[2] }).sort({ date: 1 }).exec((err, stockData) => {
+      if (err) {
+        console.error("Database error:", err);
+        return res.status(500).send("Failed to retrieve stock data");
+      }
+
+      res.json(stockData); // Send the stock data as JSON
+    });
+  });
+  
+});
+app.get("/searchfollows4", requiresAuthentication, (req, res) => {
+  const input = req.query.search; // Extract the 'input' value from the request body
+console.log(input);
+  // Find the logged-in user's "following" list
+  userdb.findOne({ username: input }, (err, user) => {
+    if (err || !user) {
+      console.error("Database error or user not found:", err);
+      return res.status(500).send("Failed to retrieve following list");
+    }
+console.log(user);
+    const following = user.following || []; // Get the list of followed users
+    if (following.length === 0) {
+      return res.status(404).send("No users being followed");
+    }
+
+    // Fetch stock data for the first followed user
+    database.find({ user: following[3] }).sort({ date: 1 }).exec((err, stockData) => {
+      if (err) {
+        console.error("Database error:", err);
+        return res.status(500).send("Failed to retrieve stock data");
+      }
+
+      res.json(stockData); // Send the stock data as JSON
+    });
+  });
+  
+});
+
+
 
 app.post("/like",  requiresAuthentication, (req, res) => {
   let postId = req.body.postId;
@@ -257,7 +367,7 @@ app.post('/authenticate', (req, res)=>{
 // --- STOCK ROUTES (from your custom code) ---
 app.post('/follow', requiresAuthentication, express.json(), (req, res) => {
   const loggedInUser = req.session.loggedInUser; // Get the logged-in user from the session
-  const userToFollow = req.body.userToFollow; // Get the user to follow from the request body
+  const userToFollow = req.body.name; // Get the user to follow from the request body
 
   if (!userToFollow) {
     return res.status(400).send("User to follow is required");
@@ -365,7 +475,6 @@ app.get('/following-chart3', requiresAuthentication, (req, res) => {
 });
 app.get('/following-chart4', requiresAuthentication, (req, res) => {
   const loggedInUser = req.session.loggedInUser; // Get the logged-in user from the session
-
   // Find the logged-in user's "following" list
   userdb.findOne({ username: loggedInUser }, (err, user) => {
     if (err || !user) {
@@ -385,7 +494,44 @@ app.get('/following-chart4', requiresAuthentication, (req, res) => {
         console.error("Database error:", err);
         return res.status(500).send("Failed to retrieve stock data");
       }
+      res.json(stockData); // Send the stock data as JSON
+    });
+  });
+});
 
+
+app.get('/list-users', requiresAuthentication, (req, res) => {
+  userdb.find({}, { username: 1, _id: 0 }, (err, users) => {
+    if (err) {
+      console.error("Database error:", err);
+      return res.status(500).json({ error: "Failed to retrieve users" });
+    }
+    res.json(users.map(user => user.username)); // Send the list of usernames as JSON
+  });
+});
+app.get('/follows', requiresAuthentication, (req, res) => {
+  const searchUser = req.query.search; // Get the user from the query parameter
+  console.log(searchUser);
+
+  // Find the searched user's "following" list
+  userdb.findOne({ username: searchUser }, (err, user) => {
+    if (err || !user) {
+      console.error("Database error or user not found:", err);
+      return res.status(500).send("Failed to retrieve following list");
+    }
+
+    const following = user.following || []; // Get the list of followed users
+console.log(following);
+    if (following.length === 0) {
+      return res.status(404).send("No users being followed");
+    }
+
+    // Fetch stock data for the first followed user
+    database.find({ user: following[0] }).sort({ date: 1 }).exec((err, stockData) => {
+      if (err) {
+        console.error("Database error:", err);
+        return res.status(500).send("Failed to retrieve stock data");
+      }
       res.json(stockData); // Send the stock data as JSON
     });
   });
@@ -426,6 +572,25 @@ app.post('/savestock', requiresAuthentication, express.json(), (req, res) => {
     res.status(200).send("Saved");
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

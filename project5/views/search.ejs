@@ -1,12 +1,9 @@
 <html>
 <head>
-<<<<<<< Updated upstream
   <title>MoodCoin</title>
         <link href="style.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-=======
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
->>>>>>> Stashed changes
 </head>
 <body>
 <div class="search-container">
@@ -15,12 +12,16 @@
 
     <div class='rest'>
       <input type="text" id="search">
-      <button onclick="searchU(); location.reload();">search</button>
+      <button onclick="searchU();">search</button>
 
       <div>
-        <a href="/specificstock" id="chartLink">
+        <a  id="chartLink">
           <canvas id="searchStock" width="200" height="100"></canvas>
         </a>
+
+        <button id="followButton" onclick="followUser()" style="display: none;">Follow User</button>
+      
+
       </div>
 
 

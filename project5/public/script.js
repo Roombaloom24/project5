@@ -1,236 +1,112 @@
 window.onload = () => {
   console.log("script has loaded");
 
+
   let footer = document.createElement("footer");
   addElements(footer);
   document.body.append(footer);
   renderCharts();
-  renderExploreCharts(); // Add this function to render the "Explore" section
-  renderSearchChart();
+  specificSearch();
+  dataNames();
+  
+
+
+
 };
 
-async function renderSearchChart() {
-  const dataFromUserSearch = posts;
-  console.log(posts);
-  const labelsSearch = dataFromUserSearch.map((item) => item.date);
-  const dataPointsSearch = dataFromUserSearch.map((item) => item.price);
-  // Render chart for user 'search'
-  const ctxSearch = document
-    .getElementById("searchStock")
-    .getContext("2d");
-  const personalStockChartSearch = new Chart(ctxSearch, {
-    type: "line",
-    data: {
-      labels: labelsSearch,
-      datasets: [
-        {
-          label: "User Search - Closing Price (USD)",
-          data: dataPointsSearch,
-          borderColor: "#ccc",
-          backgroundColor: "rgba(0,0,0,0)",
-          tension: 0.3,
-          pointRadius: 4,
-          pointHoverRadius: 6,
-          segment: {
-            borderColor: (ctx) => {
-              const i = ctx.p0DataIndex;
-              const current = ctx.chart.data.datasets[0].data[i];
-              const next = ctx.chart.data.datasets[0].data[i + 1];
-              if (!next) return "#ccc";
-              return next > current ? "green" : "red";
-            },
-          },
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      scales: {
-        x: {
-          title: { display: true, text: "Date", color: "#ccc" },
-          ticks: { color: "#ccc" },
-        },
-        y: {
-          title: { display: true, text: "Price (USD)", color: "#ccc" },
-          ticks: { color: "#ccc" },
-        },
-      },
-      plugins: {
-        legend: { labels: { color: "#ccc" } },
-      },
-    },
-  });
-}
-
-
+// do the same thign you did with the search where you look for the url and populate it with that.
+// MAKE THE NAV BUTTON POPULATE THE QUERY 
 async function renderCharts() {
 
 
-  try {
-    const userResponse = await fetch("/selfstock");
-    if (!userResponse.ok) {
-      throw new Error(`HTTP error! status: ${userResponse.status}`);
-    }
-    const userStockData = await userResponse.json();
 
-    const userLabels = userStockData.map((item) => item.date);
-    const userDataPoints = userStockData.map((item) => item.price);
-
-    // Render chart for user's personal stock
-    const userCtx = document.getElementById("personalStockChart").getContext("2d");
-    const userStockChart = new Chart(userCtx, {
-      type: "line",
-      data: {
-        labels: userLabels,
-        datasets: [
-          {
-            label: "User Stock - Closing Price (USD)",
-            data: userDataPoints,
-            borderColor: "#ccc",
-            backgroundColor: "rgba(0,0,0,0)",
-            tension: 0.3,
-            pointRadius: 4,
-            pointHoverRadius: 6,
-            segment: {
-              borderColor: (ctx) => {
-                const i = ctx.p0DataIndex;
-                const current = ctx.chart.data.datasets[0].data[i];
-                const next = ctx.chart.data.datasets[0].data[i + 1];
-                if (!next) return "#ccc";
-                return next > current ? "green" : "red";
-              },
-            },
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        scales: {
-          x: {
-            title: { display: true, text: "Date", color: "#ccc" },
-            ticks: { color: "#ccc" },
-          },
-          y: {
-            title: { display: true, text: "Price (USD)", color: "#ccc" },
-            ticks: { color: "#ccc" },
-          },
-        },
-        plugins: {
-          legend: { labels: { color: "#ccc" } },
-        },
-      },
-    });
-  } catch (error) {
-    console.error("Error rendering user stock chart:", error);
-  }
-  // Fetch data for user 'f'
-  const dataFromUserF = await fetch("/following-chart1").then((response) =>
+  const dataFromUser = await fetch("/selfstock").then((response) =>
     response.json()
   );
-  const labelsF = dataFromUserF.map((item) => item.date);
-  const dataPointsF = dataFromUserF.map((item) => item.price);
-
-  // Render chart for user 'f'
-  const ctxF = document
-    .getElementById("personalStockChart5")
-    .getContext("2d");
-  const personalStockChartF = new Chart(ctxF, {
-    type: "line",
-    data: {
-      labels: labelsF,
-      datasets: [
-        {
-          label: "User F - Closing Price (USD)",
-          data: dataPointsF,
-          borderColor: "#ccc",
-          backgroundColor: "rgba(0,0,0,0)",
-          tension: 0.3,
-          pointRadius: 4,
-          pointHoverRadius: 6,
-          segment: {
-            borderColor: (ctx) => {
-              const i = ctx.p0DataIndex;
-              const current = ctx.chart.data.datasets[0].data[i];
-              const next = ctx.chart.data.datasets[0].data[i + 1];
-              if (!next) return "#ccc";
-              return next > current ? "green" : "red";
-            },
-          },
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      scales: {
-        x: {
-          title: { display: true, text: "Date", color: "#ccc" },
-          ticks: { color: "#ccc" },
-        },
-        y: {
-          title: { display: true, text: "Price (USD)", color: "#ccc" },
-          ticks: { color: "#ccc" },
-        },
-      },
-      plugins: {
-        legend: { labels: { color: "#ccc" } },
-      },
-    },
-  });
-
-  // Fetch data for user 'v'
-  const dataFromUserV = await fetch("/following-chart2").then((response) =>
+  await generateChart("personalStockChart", dataFromUser);
+  
+  
+  const dataFromUserFollow1 = await fetch("/following-chart1").then((response) =>
     response.json()
   );
-  const labelsV = dataFromUserV.map((item) => item.date);
-  const dataPointsV = dataFromUserV.map((item) => item.price);
+  
+  await generateChart("personalStockChart5", dataFromUserFollow1);
 
-  // Render chart for user 'v'
-  const ctxV = document
-    .getElementById("personalStockChart2")
-    .getContext("2d");
-  const personalStockChartV = new Chart(ctxV, {
-    type: "line",
-    data: {
-      labels: labelsV,
-      datasets: [
-        {
-          label: "User V - Closing Price (USD)",
-          data: dataPointsV,
-          borderColor: "#ccc",
-          backgroundColor: "rgba(0,0,0,0)",
-          tension: 0.3,
-          pointRadius: 4,
-          pointHoverRadius: 6,
-          segment: {
-            borderColor: (ctx) => {
-              const i = ctx.p0DataIndex;
-              const current = ctx.chart.data.datasets[0].data[i];
-              const next = ctx.chart.data.datasets[0].data[i + 1];
-              if (!next) return "#ccc";
-              return next > current ? "green" : "red";
-            },
-          },
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      scales: {
-        x: {
-          title: { display: true, text: "Date", color: "#ccc" },
-          ticks: { color: "#ccc" },
-        },
-        y: {
-          title: { display: true, text: "Price (USD)", color: "#ccc" },
-          ticks: { color: "#ccc" },
-        },
-      },
-      plugins: {
-        legend: { labels: { color: "#ccc" } },
-      },
-    },
-  });
+
+
+  
+  const dataFromUserFollow2 = await fetch("/following-chart2").then((response) =>
+    response.json()
+  );
+
+  await generateChart("personalStockChart2", dataFromUserFollow2);
+
+    
+  const dataFromUserFollow3 = await fetch("/following-chart3").then((response) =>
+    response.json()
+  );
+
+  await generateChart("personalStockChart3", dataFromUserFollow3);
+console.log(dataFromUserFollow3);
+
+const dataFromUserFollow4 = await fetch("/following-chart4").then((response) =>
+  response.json()
+);
+
+await generateChart("personalStockChart4", dataFromUserFollow4);
+console.log(dataFromUserFollow4);
+
+
 }
+
+async function specificSearch() {
+
+  const search = document.URL;
+  const searchParam = search.includes('=') ? search.split('=')[1] : null;
+
+  if (!searchParam) {
+    console.error("Invalid URL: Missing search parameter.");
+    return;
+  }
+
+  const url = '/searchUser?search=' + searchParam;
+  const url2 = '/searchfollows?search=' + searchParam;
+  const url3 = '/searchfollows2?search=' + searchParam;
+  const url4 = '/searchfollows3?search=' + searchParam;
+  const url5 = '/searchfollows4?search=' + searchParam;
+
+  const dataFromUserS = await fetch(url).then((response) =>
+    response.json() 
+  );
+  await generateChart("specificChart", dataFromUserS);
+
+
+
+  const dataFromUserF = await fetch(url2).then((response) =>
+    response.json() 
+  );
+  await generateChart("specificChartF", dataFromUserF);
+
+
+  const dataFromUserF1 = await fetch(url3).then((response) =>
+    response.json() 
+  );
+  await generateChart("specificChartF1", dataFromUserF1);
+
+
+  const dataFromUserF2 = await fetch(url4).then((response) =>
+    response.json() 
+  );
+  await generateChart("specificChartF2", dataFromUserF2);
+
+
+  const dataFromUserF3 = await fetch(url5).then((response) =>
+    response.json() 
+  );
+  await generateChart("specificChartF3", dataFromUserF3);
+}
+
+
 
       const labels = [];
       const dataPoints = [];
@@ -280,17 +156,98 @@ async function renderCharts() {
       const searchResults = [];
       
 // REMEMBER THAT YOU CAN"T FIND THE SEAERCH IN THE BODT
-      async function searchU() {
+
+
+async function personal(){
+    user = 
+    // Redirect the user to /personalstock
+    window.location.href = '/personalstock' ;
+
+}
+
+
+
+
+
+
+
+async function searchU() {
+        document.getElementById('followButton').style.display = 'block';
+
+        if(Chart.getChart("searchStock")) {
+      Chart.getChart("searchStock")?.destroy()
+        }
 
         const input = document.getElementById('search').value;
+        const search = new URLSearchParams({ search: input });
 
-        searchResults.push(input);
-        await fetch('/searchUser' , {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({input})
+        const url = '/searchUser?' + search;
+        console.log(url);
+        let name = input.split('=').pop(); // Set the chart name to the value after '='
+        document.getElementById('chartLink').href = '/specificstock/' + search;
+
+
+        const url2 = '/searchfollows?' + search;
+        console.log(url);
+        let name2 = input.split('=').pop(); // Set the chart name to the value after '='
+
+
+
+        const dataFromUserV = await fetch(url).then((response) =>
+          response.json()
+        );
+
+        const labelsV = dataFromUserV.map((item) => item.date);
+        const dataPointsV = dataFromUserV.map((item) => item.price);
+      
+        // Render chart for user 'v'
+        const ctxV = document
+          .getElementById("searchStock")
+          .getContext("2d");
+        const personalStockChartV = new Chart(ctxV, {
+          type: "line",
+          data: {
+            labels: labelsV,
+            datasets: [
+              {
+                label: name +  " - Closing Price (USD)",
+                data: dataPointsV,
+                borderColor: "#ccc",
+                backgroundColor: "rgba(0,0,0,0)",
+                tension: 0.3,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                segment: {
+                  borderColor: (ctx) => {
+                    const i = ctx.p0DataIndex;
+                    const current = ctx.chart.data.datasets[0].data[i];
+                    const next = ctx.chart.data.datasets[0].data[i + 1];
+                    if (!next) return "#ccc";
+                    return next > current ? "green" : "red";
+                  },
+                },
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            scales: {
+              x: {
+                title: { display: true, text: "Date", color: "#ccc" },
+                ticks: { color: "#ccc" },
+              },
+              y: {
+                title: { display: true, text: "Price (USD)", color: "#ccc" },
+                ticks: { color: "#ccc" },
+              },
+            },
+            plugins: {
+              legend: { labels: { color: "#ccc" } },
+            },
+          },
         });
       }
+      
       // TRYING TO DO THIS THE SAME WAY AS THE ADD DATA FUNCTION
 // $&Y#*GUEHFBJDHAUEYGEUTFVHDBJ CNSDAHUIFGYEVHDB NSJDSHIUGYFEHVB DNSJDAOIUHEFBGJD SNKJADIUHFEBJDV NSJDAUFHUBDSJV NJFHIUSD
 // $&Y#*GUEHFBJDHAUEYGEUTFVHDBJ CNSDAHUIFGYEVHDB NSJDSHIUGYFEHVB DNSJDAOIUHEFBGJD SNKJADIUHFEBJDV NSJDAUFHUBDSJV NJFHIUSD
@@ -332,14 +289,18 @@ async function renderCharts() {
       }
 
 
-      async function followUser(userToFollow) {
+      async function followUser() {
+
+        const search = document.URL
+        const url = '/searchUser?search=' + search.split('=')[1];
+        const name = search.split('=')[1];
         // Send a POST request to the server to follow the user
         await fetch("/follow", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userToFollow }),
+          body: JSON.stringify({ name }),
         });
-        alert(`You are now following ${userToFollow}!`);
+        alert(`You are now following ${name}!`);
       }
 
 
@@ -348,4 +309,57 @@ async function renderCharts() {
   let data = await fetch("/savestock");
   let formatData = await data.json();
   console.log(formatData);
+}
+
+async function generateChart(chartId, data) {
+
+  const labels = data.map((item) => item.date);
+  const dataPoints = data.map((item) => item.price);
+
+  // Render chart for the given chartId
+  const ctx = document.getElementById(chartId).getContext("2d");
+  const chart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Closing Price (USD)",
+          data: dataPoints,
+          borderColor: "#ccc",
+          backgroundColor: "rgba(0,0,0,0)",
+          tension: 0.3,
+          pointRadius: 4,
+          pointHoverRadius: 6,
+          segment: {
+            borderColor: (ctx) => {
+              const i = ctx.p0DataIndex;
+              const current = ctx.chart.data.datasets[0].data[i];
+              const next = ctx.chart.data.datasets[0].data[i + 1];
+              if (!next) return "#ccc";
+              return next > current ? "green" : "red";
+            },
+          },
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x: {
+          title: { display: true, text: "Date", color: "#ccc" },
+          ticks: { color: "#ccc" },
+        },
+        y: {
+          title: { display: true, text: "Price (USD)", color: "#ccc" },
+          ticks: { color: "#ccc" },
+        },
+      },
+      plugins: {
+        legend: { labels: { color: "#ccc" } },
+      },
+    },
+  });
+
+  return chart;
 }

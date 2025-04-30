@@ -32,7 +32,14 @@ a , div {
 main {
     margin-left:5%;
 }
-
+.followCharts{
+    max-height: 200px;
+    max-width: 400px;
+}
+.followChart{
+    display: flex;
+    flex-direction: row;
+}
 .rest{
     position: relative;
     left: 5%;

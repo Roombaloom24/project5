@@ -1,32 +1,35 @@
-<<<<<<< Updated upstream
 <html>
     <head>
-
         <title>MoodCoin</title>
-        <link href="style.css" rel="stylesheet">
+        <link href="/style.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     </head>
     <body>
+
         <%- include('nav.ejs') %>
         <%- include('logout.ejs') %>
 
         <div class="rest">
             <h1>Stock Data</h1>
-            <p>this is the specific stock page</p>
+            <p>this is specific stock page</p>
+            
             <div class='chartDiv'>
-                <canvas id="specificStockChart" width="400" height="200"></canvas>
+            
+            <canvas id="specificChart" width="400" height="200"></canvas>
+            <div>
+            <button onclick="followUser()">Follow User</button>
             </div>
-        </div>
+                <h1>Follows</h1>
+               <div class="followChart"> 
+                <canvas class = 'followCharts' id="specificChartF" width="400" height="200"></canvas>
+                <canvas class = 'followCharts' id="specificChartF1" width="400" height="200"></canvas>
+                <canvas class = 'followCharts' id="specificChartF2" width="400" height="200"></canvas>
+                <canvas class = 'followCharts' id="specificChartF3" width="400" height="200"></canvas>
+            </div>
 
-        <script src="script.js"></script>
+            
+
+        <script src="/script.js"></script>
+
     </body>
 </html>
-=======
-<head>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-</head>
-<body>
-    
-</body>
->>>>>>> Stashed changes
