@@ -21,7 +21,19 @@ const app = express();
 
 // for icons to default if the paths aren't one of the main pages (home,search, or profile)
 app.use((req, res, next) => {
-  res.locals.activeRoute = req.path;
+  const path = req.path; // ✅ THIS was missing
+
+  if (path === '/') {
+    res.locals.activeRoute = '/';
+  } else if (path.startsWith('/search')) {
+    res.locals.activeRoute = '/search';
+  } else if (path.startsWith('/personalstock')) {
+    res.locals.activeRoute = '/personalstock';
+  } else {
+    res.locals.activeRoute = 'other';
+  }
+
+  //res.locals.activeRoute = req.path;
   next();
 });
 
@@ -102,7 +114,7 @@ app.get("/", requiresAuthentication, (request, response) => {
     database.find(query).sort(sortQuery).exec((err, data) => {
       // adding a new property to the data that is sent to my ejs 
       // this needs to be rendered in my ejs
-      response.render("mainpage.ejs", { posts: data, visitsToSite: newVisits, activeRoute: '/home' });
+      response.render("mainpage.ejs", { posts: data, visitsToSite: newVisits, activeRoute: '/' });
     });
     // } else {
   //   response.redirect('/login?err=notLoggedIn')
@@ -574,7 +586,7 @@ app.get('/personalstock', requiresAuthentication, (req, res) => {
     res.render('personalstock.ejs', {
       username: loggedInUser,
       following: user.following || [], // Pass the list of users the logged-in user is following
-      activeRoute: '/profile'
+      activeRoute: '/personalstock'
     });
   });
 });
