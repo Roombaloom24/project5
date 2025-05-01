@@ -11,15 +11,16 @@
     
 
     <div class='rest'>
-      <input type="text" id="search">
-      <button onclick="searchU();">search</button>
-
-      <div>
+      <div class="searchDiv">
+      <input  class='searchBar'type="text" id="search" placeholder="SEARCH">
+      <button class='searchButton'onclick="searchU();">search</button>
+    </div>
+      <div class="chartSearch">
         <a  id="chartLink">
           <canvas id="searchStock" width="200" height="100"></canvas>
         </a>
 
-        <button id="followButton" onclick="followUserFromSearch()" style="display: none;">Follow User</button>      
+        <button class='searchButton'id="followButton" onclick="followUserFromSearch()" style="display: none;">Follow User</button>      
 
       </div>
 

@@ -20,7 +20,18 @@ h1{
     font-family: 'SubwayTicker';
     font-size:60px;
 }
-
+p{
+    font-family: 'SubwayTicker';
+    font-size: 20px;
+}
+button , input{
+    font-family: 'SubwayTicker';
+    background-color: rgb(26, 26, 26);
+    color: white;
+    border: white 1px solid;
+    padding: 10px;
+    font-size: 20px;
+}
 html {
     padding: 0;
     margin: 0;
@@ -31,19 +42,51 @@ a , div {
     text-decoration: none;
     color: white;
 }
+.searchDiv{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    position: relative;
+    top: 5%;
+    left: 2%;
+}
+.searchBar{
+    background-color: rgb(26, 26, 26);
+    border: white 1px solid;
+    position: relative;
+    color: white;
 
- 
+    width: 400px;
+    font-family: 'SubwayTicker';
+
+}
+.chartSearch{
+    position: relative;
+    top: 5%;
+    left: 2%;
+    font-family: 'SubwayTicker';
+    background-color: rgb(26, 26, 26);
+    color: white;
+    width: 30%;
+
+}
+
+.searchButton{
+    position: relative;
+    font-family: 'SubwayTicker';
+    background-color: rgb(26, 26, 26);
+    border: white 1px solid;
+    color: white;
+
+}
 main {
     margin-left:5%;
 }
 .followCharts{
-    max-height: 200px;
-    max-width: 400px;
+    max-height: 220px;
+    max-width: 350px;
 }
-.followChart{
-    display: flex;
-    flex-direction: row;
-}
+
 .rest{
     position: relative;
     background-color: rgb(26, 26, 26);
@@ -110,6 +153,44 @@ input, button {
       height: 50%;
   }
 
+  .chartDiv2 {
+    display: flex;
+    width: 100%;
+    min-height: 60vh;
+  }
+  
+  .specificChart {
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px 24px 32px 0;
+    box-sizing: border-box;
+    border-right: 2px solid #e0e0e0;
+  }
+  
+  .followsDiv {
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 32px 0 32px 24px;
+    box-sizing: border-box;
+    position: relative;
+    top: -200px;
+  }
+  
+  .followChart {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 28px;
+    margin-top: 24px;
+    position:relative;
+    top: 35px;
+  }
+  
+
+  
 .followingDiv {
     display: flex;
     flex-wrap: wrap;

@@ -1,8 +1,7 @@
 {"username":"f","fullname":"f","password":"$2b$10$vM357.GHcNkfqvbCKe3xzOr7o12tibFfUCrrukXIsGPFw3B0zIcUu","_id":"4Gmro6tDivT802Fn","following":["v"]}
+{"username":"cryptophobe","fullname":"victor","password":"$2b$10$WGICENg53YtvzBpNjmdeRuHtHS0X326PcQhCBUhv9cIioqXxCVpSK","following":["v","f"],"_id":"T9Ro8CtC2bEuhAwp"}
 {"username":"finn","fullname":"finn","password":"$2b$10$ZdH/7s/cyY4S.uvSJjRMi.qAN/amYomgXL7WEZEHhd5joSaJt0Huu","following":["d","v","f","finn","c"],"_id":"YGPKTFxxp5Dcfuwq"}
 {"username":"v","fullname":"v","password":"$2b$10$W.U/S8Iw832aM.bypHPvu.pYUZl1JeXMfgiDHzFSDEWlTlHxtMZa2","_id":"bsUxEdGlpZDk67DN","following":["f","v","d","c"]}
 {"username":"c","fullname":"cate","password":"$2b$10$6DWI89wkRd6hIz6bdknHUOKf58hIQYZH1M1FQGsLuSZxMPLX5dzfC","following":[],"_id":"v6dNN5TktLTv6D5M"}
 {"username":"d","fullname":"d","password":"$2b$10$2sw5zFTCh14KbH3Ptf7N0uZ63O4aDqVkNxnmF3nerS4o3I6Wa7b0m","_id":"w7CdaWhZVKqFR0RI","following":["f","v"]}
-{"username":"cryptophobe","fullname":"victor","password":"$2b$10$WGICENg53YtvzBpNjmdeRuHtHS0X326PcQhCBUhv9cIioqXxCVpSK","following":[],"_id":"T9Ro8CtC2bEuhAwp"}
-{"username":"cryptophobe","fullname":"victor","password":"$2b$10$WGICENg53YtvzBpNjmdeRuHtHS0X326PcQhCBUhv9cIioqXxCVpSK","following":["v"],"_id":"T9Ro8CtC2bEuhAwp"}
-{"username":"cryptophobe","fullname":"victor","password":"$2b$10$WGICENg53YtvzBpNjmdeRuHtHS0X326PcQhCBUhv9cIioqXxCVpSK","following":["v","f"],"_id":"T9Ro8CtC2bEuhAwp"}
+{"username":"v","fullname":"v","password":"$2b$10$W.U/S8Iw832aM.bypHPvu.pYUZl1JeXMfgiDHzFSDEWlTlHxtMZa2","_id":"bsUxEdGlpZDk67DN","following":["f","v","d","c"]}
