@@ -14,10 +14,10 @@
         <%- include('logout.ejs') %>
 
         <div class="rest">
- 
-
+ <div class="personalpage2">
+<div class="yourStock">
           <h1> Your Stock </h1>
-        <div class='personal'>
+        <div class='personalll'>
         
           
           <p>Enter your own stock data below. No APIs, just your story in numbers.</p>
@@ -41,9 +41,11 @@
                 <canvas id="personalStockChart"></canvas>
                 </div>
               </a>
-
-            
+          </div>
+</div>
+            <div class="investmentsDiv">
             <h1>Your investments</h1>
+            <div class="investmentsDiv">
             <div class="investments">
               <div class="iCharts">
                 <h2>Your first Investment!</h2>
@@ -54,8 +56,10 @@
               <div class="iCharts">
                 <h2>Your second Investment!</h2>
                 <canvas id="personalStockChart2" style="max-height: 400px; max-width: 400;"></canvas>
-
               </div>
+            </div>
+
+              <div class="investments">
               <div class="iCharts">
                 <h2>Your third Investment!</h2>
                 <canvas id="personalStockChart3" style="max-height: 400px; max-width: 400;"></canvas>
@@ -66,18 +70,17 @@
                 <canvas id="personalStockChart4" style="max-height: 400px; max-width: 400;"></canvas>
 
               </div>
-              
-            
+               </div>
+              </div>
 
 
-            </div>
-
-        
+          </div>
+        </div>
     
-    
-    <script src="script.js"></script>
 
     
      </div>
+     <script src="script.js"></script>
+
     </body>
 </html>

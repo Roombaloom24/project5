@@ -37,7 +37,9 @@ html {
     margin: 0;
     background-color: rgb(26, 26, 26);
 }
-
+.chartLinnk{
+    width:30% ;
+}
 a , div {
     text-decoration: none;
     color: white;
@@ -165,7 +167,7 @@ input, button {
   }
 
   .icharts{
-    width: 24%;
+    width: 100%;
     min-height: 300px;
     max-height: 450px;
   }
@@ -211,7 +213,13 @@ input, button {
     position: relative;
     top: -200px;
   }
-  
+  .investmentsDiv{
+    display: flex;
+    flex-direction: column;
+    padding: 32px 0 32px 24px;
+    position: relative;
+    left: 50px;
+  }
   .followChart {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -228,4 +236,11 @@ input, button {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+}
+
+
+.personalPage2{
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
 }
