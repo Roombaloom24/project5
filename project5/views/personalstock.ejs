@@ -19,22 +19,14 @@
           <h1> Your stocks </h1>
         <div class='personal'>
         
-
-
           
           <p>Enter your own stock data below. No APIs, just your story in numbers.</p>
-
-
-
-
-
-
 
 
           <label for="date">How do you feel today?</label>
           <input type="date" id="date" required>
           <label for="price">Mood:</label>
-          <input type="number" id="price" step="0.01" required>
+          <input type="number" id="price" step="1" min= "0" max = "100" required>
           <button onclick="addData(); location.reload();">Add Data</button>
           <button onclick="resetChart(); location.reload();">Reset</button>
             
@@ -45,31 +37,33 @@
               <canvas id="stockChart" width="200" height="100" style="max-height: 20; max-width: 10;"></canvas>
             </div>
               <a href="/specificstock" id="chartLink">
-                <canvas id="personalStockChart" width="200" height="100"></canvas>
+                <div class="personalll">
+                <canvas id="personalStockChart"></canvas>
+                </div>
               </a>
 
-            </div>
+            
             <h1>Your investments</h1>
             <div class="investments">
               <div class="iCharts">
                 <h2>Your first Investment!</h2>
 
-                <canvas id="personalStockChart5" width="400" height="200" style="max-height: 300px; max-width: 400;"></canvas> 
+                <canvas id="personalStockChart5" style="max-height: 400px; max-width: 400;"></canvas> 
               
               </div>
               <div class="iCharts">
                 <h2>Your second Investment!</h2>
-                <canvas id="personalStockChart2" width="400" height="200" style="max-height: 300px; max-width: 400;"></canvas>
+                <canvas id="personalStockChart2" style="max-height: 400px; max-width: 400;"></canvas>
 
               </div>
               <div class="iCharts">
                 <h2>Your third Investment!</h2>
-                <canvas id="personalStockChart3" width="400" height="200" style="max-height: 300px; max-width: 400;"></canvas>
+                <canvas id="personalStockChart3" style="max-height: 400px; max-width: 400;"></canvas>
 
               </div>
               <div class="iCharts">
                 <h2>Your fourth Investment!</h2>
-                <canvas id="personalStockChart4" width="400" height="200" style="max-height: 300px; max-width: 400;"></canvas>
+                <canvas id="personalStockChart4" style="max-height: 400px; max-width: 400;"></canvas>
 
               </div>
               

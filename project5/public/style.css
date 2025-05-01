@@ -37,7 +37,7 @@ main {
     margin-left:5%;
 }
 .followCharts{
-    max-height: 200px;
+    max-height: 450px;
     max-width: 400px;
 }
 .followChart{
@@ -105,13 +105,32 @@ input, button {
     border-radius: 8px;
   }
 
-  .chartDiv {
-      width: 50%;
-      height: 50%;
+  .investments{ 
+    width: 100%; /* or 800px or whatever you want */
+    display: flex;
+    gap: 10px;
+    margin-bottom: 60px;
   }
 
-.followingDiv {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
+  .icharts{
+    width: 24%;
+    min-height: 300px;
+    max-height: 450px;
+  }
+  
+ .personalll{
+    width: 800px;
+    height: 450px;
+    margin-bottom: 40px;
+ }
+
+ #personalStockChart{
+    width: 60%;
+    height: 100%;
+ }
+
+  /* .chartDiv {
+      width: 80%;
+      height: 100%;
+  } */
+

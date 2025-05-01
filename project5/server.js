@@ -19,6 +19,12 @@ const bcrypt = require('bcrypt')
 // instantiate express application
 const app = express();
 
+// for icons to default if the paths aren't one of the main pages (home,search, or profile)
+app.use((req, res, next) => {
+  res.locals.activeRoute = req.path;
+  next();
+});
+
 // more variable setups
 const urlEncodedParser = bodyParser.urlencoded({ extended: true }); // set up body parser to parse request.body
 const upload = multer({ dest: "public/uploads" }); // set up multer location to store files
@@ -96,7 +102,7 @@ app.get("/", requiresAuthentication, (request, response) => {
     database.find(query).sort(sortQuery).exec((err, data) => {
       // adding a new property to the data that is sent to my ejs 
       // this needs to be rendered in my ejs
-      response.render("mainpage.ejs", { posts: data, visitsToSite: newVisits });
+      response.render("mainpage.ejs", { posts: data, visitsToSite: newVisits, activeRoute: '/home' });
     });
     // } else {
   //   response.redirect('/login?err=notLoggedIn')
@@ -151,7 +157,7 @@ app.get('/specificstock/:user', requiresAuthentication, (req, res) => {
 
 // route that is attached to search form
 app.get('/search', (req, res)=>{
-  res.render('search.ejs'); // Serialize data
+  res.render('search.ejs',{activeRoute: '/search'}); // Serialize data
 });
 
 app.get("/searchUser", requiresAuthentication, (req, res) => {
@@ -568,6 +574,7 @@ app.get('/personalstock', requiresAuthentication, (req, res) => {
     res.render('personalstock.ejs', {
       username: loggedInUser,
       following: user.following || [], // Pass the list of users the logged-in user is following
+      activeRoute: '/profile'
     });
   });
 });

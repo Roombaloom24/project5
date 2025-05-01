@@ -97,8 +97,8 @@ async function fetchAllUsersData() {
       const canvasId = `personalStockChart_${user}`;
       const canvasElement = document.createElement('canvas');
       canvasElement.id = canvasId;
-      canvasElement.width = 400;
-      canvasElement.height = 200;
+      // canvasElement.width = 400;
+      // canvasElement.height = 200;
 
       // Append the canvas to the link
       link.appendChild(canvasElement);

@@ -6,8 +6,17 @@
 
 
 <div class="nav">
+    <a href="/">
+        <img src="uploads/<%= activeRoute === '/home' ? 'home_selected.png' : 'home_unselected.png' %>" alt="Home" style="width:30px; height:30px;">
+      </a>
     
-    <a href="/">home</a>
-    <a href="/search">search</a>    
-    <a href="/personalstock">personal</a>
+      <a href="/search">
+        <img src="uploads/<%= activeRoute === '/search' ? 'search_selected.png' : 'search_unselected.png' %>" alt="Search" style="width:30px; height:30px;">
+      </a>
+    
+      <a href="/personalstock">
+        <img src="uploads/<%= activeRoute === '/profile' ? 'profile_selected.png' : 'profile_unselected.png' %>" alt="Profile" style="width:30px; height:30px;">
+      </a>
+    
+    
 </div>

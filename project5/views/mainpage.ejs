@@ -9,7 +9,7 @@
   <%- include('nav.ejs') %>
   <%- include('logout.ejs') %>
   <div class="rest">
-    <h1>This is the MAIN Stock page</h1>
+    <h1 style="font-size: 88px; margin-top: 20px" >Mood Stock Market</h1>
 
     <!-- Container for dynamically generated charts -->
     <div id="chartsContainer"></div>
@@ -45,8 +45,7 @@
       const canvasId = `personalStockChart_${user}`;
       const canvasElement = document.createElement('canvas');
       canvasElement.id = canvasId;
-      canvasElement.width = 400;
-      canvasElement.height = 200;
+    
 
       // Append the canvas to the link
       link.appendChild(canvasElement);
